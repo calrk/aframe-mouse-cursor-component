@@ -73,7 +73,7 @@ AFRAME.registerComponent('mouse-cursor', {
   /*==============================
   =            events            =
   ==============================*/
-  
+
   /**
    * @private
    */
@@ -104,7 +104,7 @@ AFRAME.registerComponent('mouse-cursor', {
     canvas.addEventListener('touchend', this.__onRelease.bind(this))
 
   },
-  
+
   /**
    * @private
    */
@@ -130,7 +130,7 @@ AFRAME.registerComponent('mouse-cursor', {
     canvas.removeEventListener('touchend', this.__onRelease.bind(this))
 
   },
-  
+
   /**
    * Check if the mouse cursor is active
    * @private
@@ -154,7 +154,7 @@ AFRAME.registerComponent('mouse-cursor', {
       this.__setInitMousePosition(evt)
     }
   },
-  
+
   /**
    * @private
    */
@@ -178,7 +178,7 @@ AFRAME.registerComponent('mouse-cursor', {
     this.__isDown = false
     this.__resetMousePosition()
   },
-  
+
   /**
    * @private
    */
@@ -192,7 +192,7 @@ AFRAME.registerComponent('mouse-cursor', {
       this.__setMousePosition(evt)
     }
   },
-  
+
   /**
    * @private
    */
@@ -201,7 +201,7 @@ AFRAME.registerComponent('mouse-cursor', {
 
     this.__isDown = false
   },
-  
+
   /**
    * @private
    */
@@ -210,14 +210,14 @@ AFRAME.registerComponent('mouse-cursor', {
       this.__isStereo = true
     }
   },
-  
+
   /**
    * @private
    */
   __onExitVR () {
     this.__isStereo = false
   },
-  
+
 
   /*=============================
   =            mouse            =
@@ -228,32 +228,43 @@ AFRAME.registerComponent('mouse-cursor', {
    * @private
    */
   __getPosition (evt) {
-    const { innerWidth: w, innerHeight: h } = window
+    const { innerWidth: w, innerHeight: h } = window;
 
-    let cx, cy
+    let cx, cy;
     if (this.__isMobile) {
-      const { touches } = evt
-      if (!touches || touches.length !== 1) { return }
-      const touch = touches[0]
-      cx = touch.pageX
-      cy = touch.pageY
+      const { touches } = event;
+      if (!touches || touches.length !== 1){
+        return;
+      }
+      const touch = touches[0];
+      cx = touch.pageX;
+      cy = touch.pageY;
     }
     else {
-      cx = evt.clientX
-      cy = evt.clientY
+      cx = event.clientX;
+      cy = event.clientY;
     }
+
+    const bounds = this.el.sceneEl.canvas.getBoundingClientRect();
+    const width = bounds.width;
+    const height = bounds.height;
+
+    let left = cx - bounds.left;
+    const top = cy - bounds.top;
 
     if (this.__isStereo) {
-      cx = (cx % (w/2)) * 2
+      left = (left % (width/2)) * 2
     }
 
-    const x = (cx / w) * 2 - 1
-    const y = - (cy / h) * 2 + 1
+    const x = (left / width) * 2 - 1;
+    const y = - (top / height) * 2 + 1;
 
-    return { x: x, y: y }
-
+    return {
+      x: x,
+      y: y
+    };
   },
-  
+
   /**
    * Update mouse
    * @private
@@ -289,7 +300,7 @@ AFRAME.registerComponent('mouse-cursor', {
   /*======================================
   =            scene children            =
   ======================================*/
-  
+
   /**
    * Get non group object3D
    * @private
@@ -297,7 +308,7 @@ AFRAME.registerComponent('mouse-cursor', {
   __getChildren (object3D) {
     return object3D.children.map(obj => (obj.type === 'Group')? this.__getChildren(obj) : obj)
   },
-  
+
   /**
    * Get all non group object3D
    * @private
@@ -306,11 +317,11 @@ AFRAME.registerComponent('mouse-cursor', {
     const children = this.__getChildren(this.el.sceneEl.object3D)
     return flattenDeep(children)
   },
-  
+
   /*====================================
   =            intersection            =
   ====================================*/
-  
+
   /**
    * Update intersect element with cursor
    * @private
@@ -357,7 +368,7 @@ AFRAME.registerComponent('mouse-cursor', {
       this.__clearIntersectObject()
     }
   },
-  
+
   /**
    * Set intersect element
    * @private
@@ -372,7 +383,7 @@ AFRAME.registerComponent('mouse-cursor', {
     this.el.addState('hovering')
 
   },
-  
+
   /**
    * Clear intersect element
    * @private
@@ -388,13 +399,13 @@ AFRAME.registerComponent('mouse-cursor', {
 
     this.__intersectedEl = null
   },
-  
+
 
 
   /*===============================
   =            emitter            =
   ===============================*/
-  
+
   /**
    * @private
    */
