@@ -103,6 +103,8 @@ AFRAME.registerComponent('mouse-cursor', {
     canvas.addEventListener('touchmove', this.__onTouchMove.bind(this))
     canvas.addEventListener('touchend', this.__onRelease.bind(this))
 
+    canvas.addEventListener('tap', this.__onTap.bind(this))
+
   },
 
   /**
@@ -128,6 +130,8 @@ AFRAME.registerComponent('mouse-cursor', {
     canvas.removeEventListener('touchstart', this.__onDown.bind(this))
     canvas.removeEventListener('touchmove', this.__onTouchMove.bind(this))
     canvas.removeEventListener('touchend', this.__onRelease.bind(this))
+
+    canvas.removeEventListener('tap', this.__onTap.bind(this))
 
   },
 
@@ -177,6 +181,15 @@ AFRAME.registerComponent('mouse-cursor', {
     }
     this.__isDown = false
     this.__resetMousePosition()
+  },
+
+  /**
+   * @private
+   */
+  __onTap (evt) {
+    console.log('Tap event received in mouse cursor', evt);
+    this.__onDown(evt);
+    this.__onRelease();
   },
 
   /**
@@ -232,17 +245,17 @@ AFRAME.registerComponent('mouse-cursor', {
 
     let cx, cy;
     if (this.__isMobile) {
-      const { touches } = event;
+      const { touches } = evt;
       if (!touches || touches.length !== 1){
-        return;
+        throw new Error('No touches in touch event');
       }
       const touch = touches[0];
       cx = touch.pageX;
       cy = touch.pageY;
     }
     else {
-      cx = event.clientX;
-      cy = event.clientY;
+      cx = evt.clientX;
+      cy = evt.clientY;
     }
 
     const bounds = this.el.sceneEl.canvas.getBoundingClientRect();
@@ -253,7 +266,7 @@ AFRAME.registerComponent('mouse-cursor', {
     const top = cy - bounds.top;
 
     if (this.__isStereo) {
-      left = (left % (width/2)) * 2
+      left = (left % (width/2)) * 2;
     }
 
     const x = (left / width) * 2 - 1;
