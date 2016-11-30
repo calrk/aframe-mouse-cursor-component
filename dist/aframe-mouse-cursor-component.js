@@ -251,7 +251,6 @@
 	   * @private
 	   */
 	  __onTap: function __onTap(evt) {
-	    console.log('Tap event received in mouse cursor', evt);
 	    this.__onDown(evt);
 	    this.__onRelease();
 	  },
