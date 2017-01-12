@@ -242,6 +242,9 @@
 	    if (this.__isDown && this.__intersectedEl) {
 	      this.__emit('click');
 	    }
+	    else if (this.__isDown && !this.__intersectedEl){
+	    	this.el.emit('click', { target: null });
+	    }
 	    this.__isDown = false;
 	    this.__resetMousePosition();
 	  },

@@ -179,6 +179,9 @@ AFRAME.registerComponent('mouse-cursor', {
     if (this.__isDown && this.__intersectedEl) {
       this.__emit('click')
     }
+    else if(this.__isDown && !this.__intersectedEl){
+      this.__emit('click')
+    }
     this.__isDown = false
     this.__resetMousePosition()
   },
@@ -424,6 +427,7 @@ AFRAME.registerComponent('mouse-cursor', {
   __emit (evt) {
     const { __intersectedEl } = this
     this.el.emit(evt, { target: __intersectedEl })
+    console.log(this.el);
     if (__intersectedEl) { __intersectedEl.emit(evt) }
   },
 
