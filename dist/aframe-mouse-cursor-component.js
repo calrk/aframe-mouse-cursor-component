@@ -55,7 +55,7 @@
 	}
 
 	// const IS_VR_AVAILABLE = window.hasNativeWebVRImplementation && checkHeadsetConnected()
-	var IS_VR_AVAILABLE = (AFRAME.utils.device ? AFRAME.utils.device.isMobile() : AFRAME.utils.isMobile()) || window.hasNonPolyfillWebVRSupport
+	var IS_VR_AVAILABLE = (AFRAME.utils.device ? AFRAME.utils.device.isMobile() : AFRAME.utils.isMobile()) || window.hasNonPolyfillWebVRSupport;
 
 	/**
 	 * Mouse Cursor Component for A-Frame.
@@ -239,11 +239,8 @@
 	      }
 	    }
 
-	    if (this.__isDown && this.__intersectedEl) {
+	    if (this.__isDown) {
 	      this.__emit('click');
-	    }
-	    else if (this.__isDown && !this.__intersectedEl){
-	    	this.el.emit('click', { target: null });
 	    }
 	    this.__isDown = false;
 	    this.__resetMousePosition();
