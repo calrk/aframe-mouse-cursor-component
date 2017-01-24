@@ -374,7 +374,9 @@ AFRAME.registerComponent('mouse-cursor', {
       if (this.__intersectedEl === el) { return }
       this.__clearIntersectObject()
       /* apply new object as intersected */
-      this.__setIntersectObject(el)
+      if(el){
+        this.__setIntersectObject(el)
+      }
     }
     else {
       this.__clearIntersectObject()

@@ -465,7 +465,9 @@
 	      }
 	      this.__clearIntersectObject();
 	      /* apply new object as intersected */
-	      this.__setIntersectObject(_el);
+	      if (_el) {
+	        this.__setIntersectObject(_el);
+	      }
 	    } else {
 	      this.__clearIntersectObject();
 	    }
