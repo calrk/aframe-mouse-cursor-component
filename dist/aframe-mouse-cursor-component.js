@@ -439,7 +439,7 @@
 
 	    /* get objects intersected between mouse and camera */
 	    var children = this.__getAllChildren();
-	    var intersects = __raycaster.intersectObjects(children);
+	    var intersects = __raycaster.intersectObjects(children, true);
 
 	    if (intersects.length > 0) {
 	      /* get the closest three obj */

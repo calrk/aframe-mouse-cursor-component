@@ -350,7 +350,7 @@ AFRAME.registerComponent('mouse-cursor', {
 
     /* get objects intersected between mouse and camera */
     const children = this.__getAllChildren()
-    const intersects = __raycaster.intersectObjects(children)
+    const intersects = __raycaster.intersectObjects(children, true)
 
     if (intersects.length > 0) {
       /* get the closest three obj */
