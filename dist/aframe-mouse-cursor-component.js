@@ -445,7 +445,7 @@
 	      /* get the closest three obj */
 	      var obj = void 0;
 	      intersects.every(function (item) {
-	        if (item.object.parent.visible === true) {
+	        if (item.object.el && item.object.parent.visible === true) {
 	          obj = item.object;
 	          return false;
 	        } else {
