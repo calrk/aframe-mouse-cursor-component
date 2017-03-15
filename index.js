@@ -243,7 +243,7 @@ AFRAME.registerComponent('mouse-cursor', {
     const { innerWidth: w, innerHeight: h } = window;
 
     let cx, cy;
-    if (this.__isMobile) {
+    if (evt.touches && evt.touches.length > 0) {
       const { touches } = evt;
       if (!touches || touches.length !== 1){
         throw new Error('No touches in touch event');
@@ -356,7 +356,7 @@ AFRAME.registerComponent('mouse-cursor', {
       /* get the closest three obj */
       let obj
       intersects.every(item => {
-        if (item.object.parent.visible === true) {
+        if (item.object.el && item.object.parent.visible === true) {
           obj = item.object
           return false
         }
