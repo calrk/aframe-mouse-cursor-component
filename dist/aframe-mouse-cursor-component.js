@@ -322,9 +322,6 @@
 	    if (evt.touches && evt.touches.length > 0) {
 	      var touches = evt.touches;
 
-	      if (!touches || touches.length !== 1) {
-	        throw new Error('No touches in touch event');
-	      }
 	      var touch = touches[0];
 	      cx = touch.pageX;
 	      cy = touch.pageY;

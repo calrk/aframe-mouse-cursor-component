@@ -245,9 +245,6 @@ AFRAME.registerComponent('mouse-cursor', {
     let cx, cy;
     if (evt.touches && evt.touches.length > 0) {
       const { touches } = evt;
-      if (!touches || touches.length !== 1){
-        throw new Error('No touches in touch event');
-      }
       const touch = touches[0];
       cx = touch.pageX;
       cy = touch.pageY;
