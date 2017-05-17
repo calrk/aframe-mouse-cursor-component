@@ -148,13 +148,13 @@
 
 	    /* Mouse Events */
 	    canvas.addEventListener('mousedown', this.__onDown.bind(this));
-	    // canvas.addEventListener('mousemove', this.__onMouseMove.bind(this))
+	    canvas.addEventListener('mousemove', this.__onMouseMove.bind(this));
 	    canvas.addEventListener('mouseup', this.__onRelease.bind(this));
-	    // canvas.addEventListener('mouseout', this.__onRelease.bind(this))
+	    canvas.addEventListener('mouseout', this.__onRelease.bind(this));
 
 	    /* Touch events */
 	    canvas.addEventListener('touchstart', this.__onDown.bind(this));
-	    // canvas.addEventListener('touchmove', this.__onTouchMove.bind(this))
+	    canvas.addEventListener('touchmove', this.__onTouchMove.bind(this));
 	    canvas.addEventListener('touchend', this.__onRelease.bind(this));
 
 	    canvas.addEventListener('tap', this.__onTap.bind(this));
@@ -179,13 +179,13 @@
 
 	    /* Mouse Events */
 	    canvas.removeEventListener('mousedown', this.__onDown.bind(this));
-	    // canvas.removeEventListener('mousemove', this.__onMouseMove.bind(this))
+	    canvas.removeEventListener('mousemove', this.__onMouseMove.bind(this));
 	    canvas.removeEventListener('mouseup', this.__onRelease.bind(this));
-	    // canvas.removeEventListener('mouseout', this.__onRelease.bind(this))
+	    canvas.removeEventListener('mouseout', this.__onRelease.bind(this));
 
 	    /* Touch events */
 	    canvas.removeEventListener('touchstart', this.__onDown.bind(this));
-	    // canvas.removeEventListener('touchmove', this.__onTouchMove.bind(this))
+	    canvas.removeEventListener('touchmove', this.__onTouchMove.bind(this));
 	    canvas.removeEventListener('touchend', this.__onRelease.bind(this));
 
 	    canvas.removeEventListener('tap', this.__onTap.bind(this));
@@ -265,7 +265,7 @@
 	    }
 
 	    this.__updateMouse(evt);
-	    this.__updateIntersectObject();
+	    // this.__updateIntersectObject()
 
 	    if (this.__isDown) {
 	      this.__setMousePosition(evt);
