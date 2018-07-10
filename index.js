@@ -93,15 +93,19 @@ AFRAME.registerComponent('mouse-cursor', {
     sceneEl.addEventListener('exit-vr', this.__onExitVR.bind(this))
 
     /* Mouse Events */
-    canvas.addEventListener('mousedown', this.__onDown.bind(this))
-    canvas.addEventListener('mousemove', this.__onMouseMove.bind(this))
-    canvas.addEventListener('mouseup', this.__onRelease.bind(this))
-    canvas.addEventListener('mouseout', this.__onRelease.bind(this))
+    if(!this.isMobile){
+      canvas.addEventListener('mousedown', this.__onDown.bind(this))
+      canvas.addEventListener('mousemove', this.__onMouseMove.bind(this))
+      canvas.addEventListener('mouseup', this.__onRelease.bind(this))
+      canvas.addEventListener('mouseout', this.__onRelease.bind(this))
+    }
 
     /* Touch events */
-    canvas.addEventListener('touchstart', this.__onDown.bind(this))
-    canvas.addEventListener('touchmove', this.__onTouchMove.bind(this))
-    canvas.addEventListener('touchend', this.__onRelease.bind(this))
+    if(this.isMobile){
+      canvas.addEventListener('touchstart', this.__onDown.bind(this))
+      canvas.addEventListener('touchmove', this.__onTouchMove.bind(this))
+      canvas.addEventListener('touchend', this.__onRelease.bind(this))
+    }
 
     canvas.addEventListener('tap', this.__onTap.bind(this))
 
@@ -121,15 +125,19 @@ AFRAME.registerComponent('mouse-cursor', {
     sceneEl.removeEventListener('exit-vr', this.__onExitVR.bind(this))
 
     /* Mouse Events */
-    canvas.removeEventListener('mousedown', this.__onDown.bind(this))
-    canvas.removeEventListener('mousemove', this.__onMouseMove.bind(this))
-    canvas.removeEventListener('mouseup', this.__onRelease.bind(this))
-    canvas.removeEventListener('mouseout', this.__onRelease.bind(this))
+    if(!this.isMobile){
+      canvas.removeEventListener('mousedown', this.__onDown.bind(this))
+      canvas.removeEventListener('mousemove', this.__onMouseMove.bind(this))
+      canvas.removeEventListener('mouseup', this.__onRelease.bind(this))
+      canvas.removeEventListener('mouseout', this.__onRelease.bind(this))
+    }
 
     /* Touch events */
-    canvas.removeEventListener('touchstart', this.__onDown.bind(this))
-    canvas.removeEventListener('touchmove', this.__onTouchMove.bind(this))
-    canvas.removeEventListener('touchend', this.__onRelease.bind(this))
+    if(this.isMobile){
+      canvas.removeEventListener('touchstart', this.__onDown.bind(this))
+      canvas.removeEventListener('touchmove', this.__onTouchMove.bind(this))
+      canvas.removeEventListener('touchend', this.__onRelease.bind(this))
+    }
 
     canvas.removeEventListener('tap', this.__onTap.bind(this))
 
