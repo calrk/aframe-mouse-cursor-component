@@ -26,6 +26,7 @@ AFRAME.registerComponent('mouse-cursor', {
     this.__active = false
     this.__isDown = false
     this.__intersectedEl = null
+    this.__intersect = null
     this.__attachEventListeners()
   },
 
@@ -359,22 +360,23 @@ AFRAME.registerComponent('mouse-cursor', {
 
     if (intersects.length > 0) {
       /* get the closest three obj */
-      let obj
+      let intersect
       intersects.every(item => {
         if (item.object.el && item.object.parent.visible === true) {
-          obj = item.object
+          intersect = item
           return false
         }
         else {
           return true
         }
       })
-      if (!obj) {
+      if (!intersect) {
         this.__clearIntersectObject()
         return
       }
       /* get the entity */
-      const { el } = obj.parent
+      const { el } = intersect.object.parent
+      this.__intersect = intersect;
       /* only updates if the object is not the activated object */
       if (this.__intersectedEl === el) { return }
       this.__clearIntersectObject()
@@ -429,8 +431,8 @@ AFRAME.registerComponent('mouse-cursor', {
    * @private
    */
   __emit (evt) {
-    const { __intersectedEl } = this
-    this.el.emit(evt, { target: __intersectedEl })
+    const { __intersectedEl, __intersect } = this
+    this.el.emit(evt, { intersect: __intersect, target: __intersectedEl })
     if (__intersectedEl) { __intersectedEl.emit(evt) }
   },
 

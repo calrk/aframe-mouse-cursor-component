@@ -75,6 +75,7 @@
 	    this.__active = false;
 	    this.__isDown = false;
 	    this.__intersectedEl = null;
+	    this.__intersect = null;
 	    this.__attachEventListeners();
 	  },
 
@@ -448,23 +449,24 @@
 
 	    if (intersects.length > 0) {
 	      /* get the closest three obj */
-	      var obj = void 0;
+	      var intersect = void 0;
 	      intersects.every(function (item) {
 	        if (item.object.el && item.object.parent.visible === true) {
-	          obj = item.object;
+	          intersect = item;
 	          return false;
 	        } else {
 	          return true;
 	        }
 	      });
-	      if (!obj) {
+	      if (!intersect) {
 	        this.__clearIntersectObject();
 	        return;
 	      }
 	      /* get the entity */
-	      var _el = obj.parent.el;
-	      /* only updates if the object is not the activated object */
+	      var _el = intersect.object.parent.el;
 
+	      this.__intersect = intersect;
+	      /* only updates if the object is not the activated object */
 	      if (this.__intersectedEl === _el) {
 	        return;
 	      }
@@ -521,9 +523,10 @@
 	   * @private
 	   */
 	  __emit: function __emit(evt) {
-	    var __intersectedEl = this.__intersectedEl;
+	    var __intersectedEl = this.__intersectedEl,
+	        __intersect = this.__intersect;
 
-	    this.el.emit(evt, { target: __intersectedEl });
+	    this.el.emit(evt, { intersect: __intersect, target: __intersectedEl });
 	    if (__intersectedEl) {
 	      __intersectedEl.emit(evt);
 	    }
