@@ -158,6 +158,9 @@ AFRAME.registerComponent('mouse-cursor', {
   __onDown (evt) {
     if (!this.__isActive()) { return }
 
+    var sceneEl = this.el.sceneEl;
+    this.__raycaster.camera = sceneEl.camera;
+
     this.__isDown = true
 
     this.__updateMouse(evt)

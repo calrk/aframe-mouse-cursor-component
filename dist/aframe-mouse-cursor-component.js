@@ -218,6 +218,9 @@
 	      return;
 	    }
 
+	    var sceneEl = this.el.sceneEl;
+	    this.__raycaster.camera = sceneEl.camera;
+
 	    this.__isDown = true;
 
 	    this.__updateMouse(evt);
