@@ -454,12 +454,13 @@
 	      /* get the closest three obj */
 	      var intersect = void 0;
 	      intersects.every(function (item) {
-	        if (item.object.el && item.object.parent.visible === true) {
+	        if (!intersect) {
 	          intersect = item;
-	          return false;
-	        } else {
-	          return true;
 	        }
+
+	        // send special click events to subsequent objects
+	        item.object.el.emit('clickbehind', { intersect: item, target: item.object.el });
+	        return true;
 	      });
 	      if (!intersect) {
 	        this.__clearIntersectObject();

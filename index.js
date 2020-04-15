@@ -365,13 +365,13 @@ AFRAME.registerComponent('mouse-cursor', {
       /* get the closest three obj */
       let intersect
       intersects.every(item => {
-        if (item.object.el && item.object.parent.visible === true) {
-          intersect = item
-          return false
+        if(!intersect){
+          intersect = item;
         }
-        else {
-          return true
-        }
+
+        // send special click events to subsequent objects
+        item.object.el.emit('clickbehind', { intersect: item, target: item.object.el });
+        return true;
       })
       if (!intersect) {
         this.__clearIntersectObject()
