@@ -454,12 +454,18 @@
 	      /* get the closest three obj */
 	      var intersect = void 0;
 	      intersects.every(function (item) {
-	        if (!intersect) {
+	        if (!intersect && item.object.el) {
+	          if (item.object.el.getAttribute('no-select')) {
+	            return true;
+	          }
+
 	          intersect = item;
 	        }
 
 	        // send special click events to subsequent objects
-	        item.object.el.emit('clickbehind', { intersect: item, target: item.object.el });
+	        if (item.object.el) {
+	          item.object.el.emit('clickbehind', { intersect: item, target: item.object.el });
+	        }
 	        return true;
 	      });
 	      if (!intersect) {
